@@ -14,6 +14,7 @@
 		E2AFE6862193E80D00F5AF17 /* HTTPConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = E2AFE6852193E80D00F5AF17 /* HTTPConnector.m */; };
 		E2AFE68A21940E1D00F5AF17 /* NativeConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = E2AFE68921940E1D00F5AF17 /* NativeConnector.m */; };
 		E2AFE68D2194176B00F5AF17 /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2AFE68C2194176B00F5AF17 /* WebController.m */; };
+		E2AFE69021941EEA00F5AF17 /* TestConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = E2AFE68F21941EEA00F5AF17 /* TestConnector.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -44,6 +45,8 @@
 		E2AFE68921940E1D00F5AF17 /* NativeConnector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NativeConnector.m; sourceTree = "<group>"; };
 		E2AFE68B2194176B00F5AF17 /* WebController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebController.h; sourceTree = "<group>"; };
 		E2AFE68C2194176B00F5AF17 /* WebController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebController.m; sourceTree = "<group>"; };
+		E2AFE68E21941EEA00F5AF17 /* TestConnector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestConnector.h; sourceTree = "<group>"; };
+		E2AFE68F21941EEA00F5AF17 /* TestConnector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestConnector.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +87,8 @@
 				225EA583215D1C820015DE15 /* Interface_user.m */,
 				E2AFE68B2194176B00F5AF17 /* WebController.h */,
 				E2AFE68C2194176B00F5AF17 /* WebController.m */,
+				E2AFE68E21941EEA00F5AF17 /* TestConnector.h */,
+				E2AFE68F21941EEA00F5AF17 /* TestConnector.m */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -163,6 +168,7 @@
 				E2AFE68A21940E1D00F5AF17 /* NativeConnector.m in Sources */,
 				E2AFE68D2194176B00F5AF17 /* WebController.m in Sources */,
 				225EA584215D1C820015DE15 /* Interface_user.m in Sources */,
+				E2AFE69021941EEA00F5AF17 /* TestConnector.m in Sources */,
 				225EA581215D1B7C0015DE15 /* User.m in Sources */,
 				E2AFE6862193E80D00F5AF17 /* HTTPConnector.m in Sources */,
 			);

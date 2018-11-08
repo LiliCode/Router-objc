@@ -10,6 +10,7 @@
 #import "Router/Router.h"
 #import "User.h"
 #import "WebController.h"
+#import "TestConnector.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
@@ -21,6 +22,10 @@ int main(int argc, const char * argv[]) {
         [[Router sharedRouter] registerConnector:httpConnector forScheme:@"http"];
         [[Router sharedRouter] registerConnector:httpConnector forScheme:@"https"];
         [[Router sharedRouter] registerConnector:nativeConnector forScheme:@"app"];
+        
+        // 自定义Connector
+        TestConnector *connector = [[TestConnector alloc] init];
+        [[Router sharedRouter] registerConnector:connector forScheme:@"test"];
         
         // 测试
         NSError *error = nil;
