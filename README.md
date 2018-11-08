@@ -2,6 +2,14 @@
 ======
 > 一个简单的客户端Router。
 
+安装方法
+------
+1. CocoaPods
+```Ruby
+pod 'Router', :git => 'https://github.com/LiliCode/Router-objc.git'
+```
+2. 手动安装，项目下载下来之后，将Router文件夹一起放入到你的工程中
+
 Router链接规范
 ------
 示例链接：
