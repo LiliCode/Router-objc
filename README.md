@@ -1,4 +1,4 @@
-项目说明
+使用说明
 ======
 > 一个简单的客户端Router。
 
@@ -6,7 +6,7 @@
 ------
 1. CocoaPods
 ```Ruby
-pod 'Router', :git => 'https://github.com/LiliCode/Router-objc.git'
+pod 'Router', :git => 'https://github.com/LiliCode/Router-objc.git' # 暂不支持版本号安装
 ```
 2. 手动安装，项目下载下来之后，将Router文件夹一起放入到你的工程中
 
@@ -38,7 +38,9 @@ Router链接规范
 + (id)userCenter;
 
 @end
+```
 
+```objc
 @implementation Target_user
 
 + (id)detail:(NSDictionary *)parameter {
