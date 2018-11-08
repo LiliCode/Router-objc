@@ -48,7 +48,10 @@
 
 - (id)performTarget:(NSString *)target withAction:(NSString *)action withParameter:(NSDictionary *)parameter error:(NSError * _Nullable __autoreleasing *)error {
     if (!target.length || !action.length) {
-        *error = [NSError errorWithDomain:@"NativeConnector" code:0 userInfo:@{NSLocalizedDescriptionKey:@"链接不符合NativeConnector规范"}];
+        if (error) {
+            *error = [NSError errorWithDomain:@"NativeConnector" code:0 userInfo:@{NSLocalizedDescriptionKey:@"链接不符合NativeConnector规范"}];
+        }
+        
         return nil;
     }
     
@@ -56,8 +59,11 @@
     SEL selector = NSSelectorFromString(action);
     // 判断class是否可以响应selector
     if (![class respondsToSelector:selector]) {
-        NSString *errorMsg = [NSString stringWithFormat:@"%@ 接口类中找不到 %@ 方法", target, action];
-        *error = [NSError errorWithDomain:@"NativeConnector" code:0 userInfo:@{NSLocalizedDescriptionKey:errorMsg}];
+        if (error) {
+            NSString *errorMsg = [NSString stringWithFormat:@"%@ 接口类中找不到 %@ 方法", target, action];
+            *error = [NSError errorWithDomain:@"NativeConnector" code:0 userInfo:@{NSLocalizedDescriptionKey:errorMsg}];
+        }
+        
         return nil;
     }
     

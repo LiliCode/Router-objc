@@ -22,7 +22,7 @@ int main(int argc, const char * argv[]) {
         [[Router sharedRouter] registerConnector:httpConnector forScheme:@"http"];
         [[Router sharedRouter] registerConnector:httpConnector forScheme:@"https"];
         [[Router sharedRouter] registerConnector:nativeConnector forScheme:@"app"];
-        
+
         // 自定义Connector
         TestConnector *connector = [[TestConnector alloc] init];
         [[Router sharedRouter] registerConnector:connector forScheme:@"test"];
@@ -37,7 +37,7 @@ int main(int argc, const char * argv[]) {
         }
         
         NSError *webError = nil;
-        WebController *web = _ROUTER(@"http://www.aiyuke.com", &webError);
+        WebController *web = _ROUTER(@"http://www.aiyuke.com", NULL);
         if (!webError) {
             NSLog(@"URL: %@", web.url);
         } else {

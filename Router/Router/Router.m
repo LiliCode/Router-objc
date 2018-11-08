@@ -67,15 +67,21 @@ static Router *router = nil;
 
 - (id)openURL:(NSURL *)URL error:(NSError **)error {
     if (!URL) {
-        *error = [NSError errorWithDomain:@"router" code:0 userInfo:@{NSLocalizedDescriptionKey:@"URL为空"}];
+        if (error) {
+            *error = [NSError errorWithDomain:@"router" code:0 userInfo:@{NSLocalizedDescriptionKey:@"URL为空"}];
+        }
+        
         return nil;
     }
     
     // 获取连接器
     id <URLConnector> connector = [self.schemes objectForKey:URL.scheme];
     if (!connector) {
-        NSString *errorMsg = [NSString stringWithFormat:@"Router不支持这个URL的Scheme，你可以通过 registerConnector:forScheme: 方法注册%@这个Scheme", URL.scheme];
-        *error = [NSError errorWithDomain:@"router" code:0 userInfo:@{NSLocalizedDescriptionKey:errorMsg}];
+        if (error) {
+            NSString *errorMsg = [NSString stringWithFormat:@"Router不支持这个URL的Scheme，你可以通过 registerConnector:forScheme: 方法注册%@这个Scheme", URL.scheme];
+            *error = [NSError errorWithDomain:@"router" code:0 userInfo:@{NSLocalizedDescriptionKey:errorMsg}];
+        }
+        
         return nil;
     }
     
