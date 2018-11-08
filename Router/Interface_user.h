@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Interface_user : NSObject
+@interface Target_user : NSObject
 
 /// app://user/detail?uid=x&name=xxx
 + (id)detail:(NSDictionary *)parameter;

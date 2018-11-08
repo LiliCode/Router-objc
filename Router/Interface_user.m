@@ -9,7 +9,7 @@
 #import "Interface_user.h"
 #import "User.h"
 
-@implementation Interface_user
+@implementation Target_user
 
 + (id)detail:(NSDictionary *)parameter {
     User *u = [User new];

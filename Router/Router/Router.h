@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HTTPConnector.h"
+#import "NativeConnector.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,14 +34,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (id)openURL:(NSURL *)URL error:(NSError **)error;
 
 /**
- 通过模块名称和方法名称找到特定的类
+ 注册Connector连接器
 
- @param target 模块名称，接口类名称，类名称
- @param action 类中的方法，接口中的方法
- @param parameter 参数，方法需要的参数
- @return 返回指定的对象，如果未找到该对象返回空
+ @param connector URL连接器
+ @param scheme URL scheme
  */
-- (id)performTarget:(NSString *)target withAction:(NSString *)action withParameter:(NSDictionary *)parameter;
+- (void)registerConnector:(id<URLConnector>)connector forScheme:(NSString *)scheme;
 
 @end
 

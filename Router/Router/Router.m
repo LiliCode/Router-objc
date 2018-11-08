@@ -9,7 +9,7 @@
 #import "Router.h"
 
 @interface Router ()
-@property (strong, nonatomic) NSMutableDictionary *schemes;
+@property (strong, nonatomic) NSMutableDictionary <NSString *, id<URLConnector>>*schemes;
 
 @end
 
@@ -43,96 +43,46 @@ static Router *router = nil;
     return router;
 }
 
-- (NSMutableDictionary *)schemes {
+- (NSMutableDictionary<NSString *,id<URLConnector>> *)schemes {
     if (!_schemes) {
         _schemes = [NSMutableDictionary new];
-        [_schemes setObject:@"openWeb:" forKey:@"https"];
-        [_schemes setObject:@"openWeb:" forKey:@"http"];
-        [_schemes setObject:@"openNative:" forKey:@"app"];
     }
     
     return _schemes;
 }
 
+- (void)registerConnector:(id<URLConnector>)connector forScheme:(nonnull NSString *)scheme {
+    if (!connector || !scheme.length) {
+        NSLog(@"%s 注册失败, connector 或 scheme 为空!", __FUNCTION__);
+        return;
+    }
+    
+    if (![connector conformsToProtocol:@protocol(URLConnector)]) {
+        NSLog(@"%s 注册失败, connector 没有遵循URLConnector协议!", __FUNCTION__);
+        return;
+    }
+    
+    [self.schemes setObject:connector forKey:scheme];
+}
+
 - (id)openURL:(NSURL *)URL error:(NSError **)error {
     if (!URL) {
-        *error = [NSError errorWithDomain:@"router" code:404 userInfo:@{NSLocalizedDescriptionKey:@"URL为空"}];
+        *error = [NSError errorWithDomain:@"router" code:0 userInfo:@{NSLocalizedDescriptionKey:@"URL为空"}];
         return nil;
     }
     
-    NSString *selector = [self.schemes objectForKey:URL.scheme];
-    if (!selector) {
-        *error = [NSError errorWithDomain:URL.absoluteString code:404 userInfo:@{NSLocalizedDescriptionKey:@"不支持的URL链接"}];
+    // 获取连接器
+    id <URLConnector> connector = [self.schemes objectForKey:URL.scheme];
+    if (!connector) {
+        NSString *errorMsg = [NSString stringWithFormat:@"Router不支持这个URL的Scheme，你可以通过 registerConnector:forScheme: 方法注册%@这个Scheme", URL.scheme];
+        *error = [NSError errorWithDomain:@"router" code:0 userInfo:@{NSLocalizedDescriptionKey:errorMsg}];
         return nil;
     }
     
-    if (![self respondsToSelector:NSSelectorFromString(selector)]) {
-        return nil;
+    if ([connector willPerformURL:URL]) {   // 判断当前URL是否可以被执行
+        return [connector performURL:URL error:error];  // 执行URL，返回对象
     }
     
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    return [self performSelector:NSSelectorFromString(selector) withObject:URL];
-#pragma clang diagnostic pop
-}
-
-- (id)performTarget:(NSString *)target withAction:(NSString *)action withParameter:(NSDictionary *)parameter {
-    if (!target.length || !action.length) {
-        return nil;
-    }
-    
-    Class class = NSClassFromString(target);
-    SEL selector = NSSelectorFromString(action);
-    // 判断class是否可以响应selector
-    if (![class respondsToSelector:selector]) {
-        return nil;
-    }
-    
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    NSMethodSignature *signature = [class methodSignatureForSelector:selector];
-    if (!strcmp(signature.methodReturnType, @encode(void))) {
-        [class performSelector:selector withObject:parameter];  // 方法无返回值
-        return nil;
-    }
-    
-    return [class performSelector:selector withObject:parameter];
-#pragma clang diagnostic pop
-}
-
-- (id)openNative:(NSURL *)URL {
-    // 解析链接：类名、方法、参数
-    NSString *urlString = [URL.absoluteString copy];
-    // 去掉scheme
-    NSString *url = [[urlString componentsSeparatedByString:@"//"] lastObject];
-    // 判断是否有参数
-    NSRange r = [url rangeOfString:@"?"];
-    NSString *targetName = nil, *actionName = nil;
-    NSMutableDictionary *params = [NSMutableDictionary new];
-    if (NSNotFound == r.location) { // 无参数
-        NSArray *components = [url componentsSeparatedByString:@"/"];
-        targetName = [components firstObject];
-        actionName = [components lastObject];
-    } else {
-        NSArray *components = [url componentsSeparatedByString:@"?"];
-        NSString *targetAction = [components firstObject];
-        NSString *paramsString = [components lastObject];
-        // 解析类名和方法名
-        NSArray *targetActionList = [targetAction componentsSeparatedByString:@"/"];
-        targetName = [targetActionList firstObject];
-        actionName = [[targetActionList lastObject] stringByAppendingString:@":"];
-        // 解析参数
-        NSArray *keyValues = [paramsString componentsSeparatedByString:@"&"];
-        for (NSString *keyValueString in keyValues) {
-            NSArray *keyValueList = [keyValueString componentsSeparatedByString:@"="];
-            [params setObject:[keyValueList lastObject] forKey:[keyValueList firstObject]];
-        }
-    }
-    
-    return [self performTarget:[NSString stringWithFormat:@"Interface_%@", targetName] withAction:actionName withParameter:[params copy]];
-}
-
-- (id)openWeb:(NSURL *)URL {
     return nil;
 }
 

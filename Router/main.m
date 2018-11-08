@@ -9,14 +9,34 @@
 #import <Foundation/Foundation.h>
 #import "Router/Router.h"
 #import "User.h"
+#import "WebController.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
+        // 创建连接器
+        HTTPConnector *httpConnector = [[HTTPConnector alloc] init];
+        httpConnector.webControllerClass = [WebController class];
+        NativeConnector *nativeConnector = [[NativeConnector alloc] init];
+        // 注册连接器
+        [[Router sharedRouter] registerConnector:httpConnector forScheme:@"http"];
+        [[Router sharedRouter] registerConnector:httpConnector forScheme:@"https"];
+        [[Router sharedRouter] registerConnector:nativeConnector forScheme:@"app"];
         
+        // 测试
         NSError *error = nil;
         User *u = _ROUTER(@"app://user/detail?name=Lihuaxiang&uid=2", &error);
         if (!error) {
             NSLog(@"user.uid = %lu; user.name=%@", u.uid, u.name);
+        } else {
+            NSLog(@"%@", error.userInfo[NSLocalizedDescriptionKey]);
+        }
+        
+        NSError *webError = nil;
+        WebController *web = _ROUTER(@"http://www.aiyuke.com", &webError);
+        if (!webError) {
+            NSLog(@"URL: %@", web.url);
+        } else {
+            NSLog(@"%@", webError.userInfo[NSLocalizedDescriptionKey]);
         }
     }
     
