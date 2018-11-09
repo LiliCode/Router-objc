@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "Router"
-  s.version      = "0.1.0"
+  s.version      = "0.1.1"
   s.summary      = "一个简单的客户端Router."
 
   # This description is used to generate tags and improve search results.
@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
-  一个简单的客户端Router，可以自定义协议和连接器.
+  一个简单的客户端Router，使用链接访问，可以自定义协议和连接器.
                    DESC
 
   s.homepage     = "https://github.com/LiliCode/Router-objc"
