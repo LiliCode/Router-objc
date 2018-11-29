@@ -28,6 +28,7 @@ int main(int argc, const char * argv[]) {
         [[Router sharedRouter] registerConnector:connector forScheme:@"test"];
         
         // 测试
+        // 有参数类型
         NSError *error = nil;
         User *u = _ROUTER(@"app://user/detail?name=Lihuaxiang&uid=2", &error);
         if (!error) {
@@ -35,6 +36,17 @@ int main(int argc, const char * argv[]) {
         } else {
             NSLog(@"%@", error.userInfo[NSLocalizedDescriptionKey]);
         }
+        
+        // 无参数类型
+        User *emptyObject = ROUTER(@"app://user/userCenter");
+        if (emptyObject) {
+            NSLog(@"user.uid = %lu; user.name=%@", emptyObject.uid, emptyObject.name);
+        }
+        
+        // 无返回值类型
+        ROUTER(@"app://user/log?text=testLog");
+        // 无返回值 无参数类型
+        ROUTER(@"app://user/log");
         
         NSError *webError = nil;
         WebController *web = _ROUTER(@"http://www.aiyuke.com", NULL);

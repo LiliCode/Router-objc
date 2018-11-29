@@ -15,12 +15,22 @@
     User *u = [User new];
     u.uid = [parameter[@"uid"] integerValue];
     u.name = parameter[@"name"];
-    
+    NSLog(@"%s", __FUNCTION__);
     return u;
 }
 
 + (id)userCenter {
+    NSLog(@"%s", __FUNCTION__);
     return [User new];
+}
+
++ (void)log:(NSDictionary *)parameter {
+    NSLog(@"%s", __FUNCTION__);
+    NSLog(@"日志输出：%@", parameter);
+}
+
++ (void)log {
+    NSLog(@"日志输出：User Class %s", __FUNCTION__);
 }
 
 @end

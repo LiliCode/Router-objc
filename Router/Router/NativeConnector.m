@@ -54,16 +54,17 @@
         return nil;
     }
     
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     NSMethodSignature *signature = [class methodSignatureForSelector:selector];
+    IMP imp = (void *)[class methodForSelector:selector];
     if (!strcmp(signature.methodReturnType, @encode(void))) {
-        [class performSelector:selector withObject:parameter];  // 方法无返回值
+        // 方法无返回值
+        void (*SEND_MSG)(id, SEL, id) = (void *)imp;
+        SEND_MSG(class, selector, parameter);
         return nil;
     }
     
-    return [class performSelector:selector withObject:parameter];
-#pragma clang diagnostic pop
+    id (*SEND_MSG)(id, SEL, id) = (void *)imp;
+    return SEND_MSG(class, selector, parameter);
 }
 
 @end
