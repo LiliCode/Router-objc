@@ -30,7 +30,17 @@
         [params setObject:item.value forKey:item.name];
     }
     
-    return [self performTarget:[NSString stringWithFormat:@"Target_%@", components.host] withAction:action withParameter:[params copy] error:error];
+    // 接口类 Target_ 后面名称首字母大写
+    NSMutableString *mTargetName = [components.host mutableCopy];
+    NSString *targetName = nil;
+    if (mTargetName.length) {
+        NSUInteger index = 1;
+        NSString *firstChar = [mTargetName substringToIndex:index];
+        NSString *suffixString = [mTargetName substringFromIndex:index];
+        targetName = [[firstChar uppercaseString] stringByAppendingString:suffixString];
+    }
+    
+    return [self performTarget:[NSString stringWithFormat:@"Target_%@", targetName] withAction:action withParameter:[params copy] error:error];
 }
 
 - (id)performTarget:(NSString *)target withAction:(NSString *)action withParameter:(NSDictionary *)parameter error:(NSError * _Nullable __autoreleasing *)error {
@@ -55,16 +65,14 @@
     }
     
     NSMethodSignature *signature = [class methodSignatureForSelector:selector];
-    IMP imp = (void *)[class methodForSelector:selector];
-    if (!strcmp(signature.methodReturnType, @encode(void))) {
-        // 方法无返回值
-        void (*SEND_MSG)(id, SEL, id) = (void *)imp;
-        SEND_MSG(class, selector, parameter);
+    if (!strcmp(signature.methodReturnType, @encode(void))) {   // 方法无返回值
+        // 使用 runtime 动态调用 class 中的方法: 参考: https://www.jianshu.com/p/6517ab655be7
+        // 也可以使用 performSelector 的方法动态调用，只不过在ARC下面编译器会出现警告(爆栈)
+        ((void (*)(id, SEL, id))[class methodForSelector:selector])(class, selector, parameter);
         return nil;
     }
     
-    id (*SEND_MSG)(id, SEL, id) = (void *)imp;
-    return SEND_MSG(class, selector, parameter);
+    return ((id (*)(id, SEL, id))[class methodForSelector:selector])(class, selector, parameter);
 }
 
 @end

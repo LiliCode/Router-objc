@@ -18,19 +18,19 @@ Router链接规范
 链接构成解释：
 > scheme://className/methodName?key=value
 - scheme: 自定义协议，或其他标准协议名称，比如：http、https
-- className: 需要访问的类名称或者接口类名称
+- className: 需要访问的类名称或者接口类名称 （在定义接口时，类名必须首字母大写，在链接中使用时首字母可以不用大写但也可以使用大写）
 - methodName: 接口类中的方法
 - key value: 参数，和标准http链接一样
 
 使用前准备
 ------
-1. 新建一个 Target_ 开头的接口类文件
+1. 新建一个 Target_ 开头的接口类文件 (注意:Target_ 后面的名称必须首字母大写)
 2. 定义类方法 + (id)action
 3. 在方法的实现中做业务操作
 
 代码示例：
 ```objc
-@interface Target_user : NSObject
+@interface Target_User : NSObject
 
 /// app://user/detail?uid=x&name=xxx
 + (id)detail:(NSDictionary *)parameter;
@@ -41,7 +41,7 @@ Router链接规范
 ```
 
 ```objc
-@implementation Target_user
+@implementation Target_User
 
 + (id)detail:(NSDictionary *)parameter {
     // 在这里创建要调用的类并返回

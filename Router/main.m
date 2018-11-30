@@ -55,6 +55,8 @@ int main(int argc, const char * argv[]) {
         } else {
             NSLog(@"%@", webError.userInfo[NSLocalizedDescriptionKey]);
         }
+        
+        ROUTER(@"app://a/aTestAction");
     }
     
     return 0;

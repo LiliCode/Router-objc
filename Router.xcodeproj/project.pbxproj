@@ -11,6 +11,7 @@
 		225EA57E215D05360015DE15 /* Router.m in Sources */ = {isa = PBXBuildFile; fileRef = 225EA57D215D05360015DE15 /* Router.m */; };
 		225EA581215D1B7C0015DE15 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 225EA580215D1B7C0015DE15 /* User.m */; };
 		225EA584215D1C820015DE15 /* Interface_user.m in Sources */ = {isa = PBXBuildFile; fileRef = 225EA583215D1C820015DE15 /* Interface_user.m */; };
+		E247954321B1134400E95106 /* Target_A.m in Sources */ = {isa = PBXBuildFile; fileRef = E247954221B1134400E95106 /* Target_A.m */; };
 		E2AFE6862193E80D00F5AF17 /* HTTPConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = E2AFE6852193E80D00F5AF17 /* HTTPConnector.m */; };
 		E2AFE68A21940E1D00F5AF17 /* NativeConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = E2AFE68921940E1D00F5AF17 /* NativeConnector.m */; };
 		E2AFE68D2194176B00F5AF17 /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2AFE68C2194176B00F5AF17 /* WebController.m */; };
@@ -38,6 +39,8 @@
 		225EA580215D1B7C0015DE15 /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		225EA582215D1C820015DE15 /* Interface_user.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Interface_user.h; sourceTree = "<group>"; };
 		225EA583215D1C820015DE15 /* Interface_user.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Interface_user.m; sourceTree = "<group>"; };
+		E247954121B1134400E95106 /* Target_A.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Target_A.h; sourceTree = "<group>"; };
+		E247954221B1134400E95106 /* Target_A.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Target_A.m; sourceTree = "<group>"; };
 		E2AFE6842193E80D00F5AF17 /* HTTPConnector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTTPConnector.h; sourceTree = "<group>"; };
 		E2AFE6852193E80D00F5AF17 /* HTTPConnector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTTPConnector.m; sourceTree = "<group>"; };
 		E2AFE6872193E83900F5AF17 /* URLConnector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = URLConnector.h; sourceTree = "<group>"; };
@@ -85,6 +88,8 @@
 				225EA580215D1B7C0015DE15 /* User.m */,
 				225EA582215D1C820015DE15 /* Interface_user.h */,
 				225EA583215D1C820015DE15 /* Interface_user.m */,
+				E247954121B1134400E95106 /* Target_A.h */,
+				E247954221B1134400E95106 /* Target_A.m */,
 				E2AFE68B2194176B00F5AF17 /* WebController.h */,
 				E2AFE68C2194176B00F5AF17 /* WebController.m */,
 				E2AFE68E21941EEA00F5AF17 /* TestConnector.h */,
@@ -167,6 +172,7 @@
 				225EA575215D04F10015DE15 /* main.m in Sources */,
 				E2AFE68A21940E1D00F5AF17 /* NativeConnector.m in Sources */,
 				E2AFE68D2194176B00F5AF17 /* WebController.m in Sources */,
+				E247954321B1134400E95106 /* Target_A.m in Sources */,
 				225EA584215D1C820015DE15 /* Interface_user.m in Sources */,
 				E2AFE69021941EEA00F5AF17 /* TestConnector.m in Sources */,
 				225EA581215D1B7C0015DE15 /* User.m in Sources */,
